@@ -9,11 +9,10 @@
 
 namespace PTC.Models
 {
-    using System;
-    using System.Data.Entity;
-    using System.Data.Entity.Infrastructure;
-    
-    public partial class PTCEntities : DbContext
+  using System.Data.Entity;
+  using System.Data.Entity.Infrastructure;
+
+  public partial class PTCEntities : DbContext
     {
         public PTCEntities()
             : base("name=PTCEntities")
