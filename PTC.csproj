@@ -136,6 +136,7 @@
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="CommonClasses\PageConstants.cs" />
     <Compile Include="CommonClasses\ProductSearch.cs" />
+    <Compile Include="controllers.api\CategoryController.cs" />
     <Compile Include="controllers.api\ProductController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Global.asax.cs">
