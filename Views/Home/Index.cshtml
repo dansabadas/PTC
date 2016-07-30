@@ -4,16 +4,20 @@
   ViewBag.Title = "Paul's Training Company";
 }
 
-@using (Html.BeginForm()) {
-  <!-- ** BEGIN HIDDEN FIELDS AREA ** -->
-  @Html.HiddenFor(m => m.EventCommand)
-  @Html.HiddenFor(m => m.EventArgument)
-  @Html.HiddenFor(m => m.PageMode)
-  @Html.HiddenFor(m => m.Entity.ProductId)
-  <!-- ** END HIDDEN FIELDS AREA ** -->
-
-  if (!Model.IsValid)
-	{
+@using (Html.BeginForm())
+{
+  <div ng-app="app"
+       ng-controller="ProductController as vm">
+    <span>{{vm.product.ProductName}}</span>
+    </div>
+    <!-- ** BEGIN HIDDEN FIELDS AREA ** -->
+    @Html.HiddenFor(m => m.EventCommand)
+    @Html.HiddenFor(m => m.EventArgument)
+    @Html.HiddenFor(m => m.PageMode)
+    @Html.HiddenFor(m => m.Entity.ProductId)
+    <!-- ** END HIDDEN FIELDS AREA ** -->
+    if (!Model.IsValid)
+    {
     <!-- ** BEGIN MESSAGE AREA ** -->
     <div class="row">
       <div class="col-xs-12">
@@ -32,9 +36,9 @@
       </div>
     </div>
     <!-- ** END MESSAGE AREA ** -->
-  }
+    }
 
-  if (Model.IsSearchAreaVisible) {
+    if (Model.IsSearchAreaVisible) {
     <!-- ** BEGIN SEARCH AREA ** -->
     <div class="panel panel-primary">
       <div class="panel-heading">
@@ -42,14 +46,14 @@
       </div>
       <div class="panel-body">
         <div class="form-group">
-          @Html.LabelFor(m => m.SearchEntity.CategoryId, 
+          @Html.LabelFor(m => m.SearchEntity.CategoryId,
                          "Select a Product Category")
           @Html.DropDownListFor(m => m.SearchEntity.CategoryId,
                                 new SelectList(Model.SearchCategories,
-                                                "CategoryId", 
+                                                "CategoryId",
                                                 "CategoryName"),
                                new { @class = "form-control" })
-        </div>        
+        </div>
         <div class="form-group">
           @Html.LabelFor(m => m.SearchEntity.ProductName, "Product Name")
           @Html.TextBoxFor(m => m.SearchEntity.ProductName, new { @class = "form-control" })
@@ -76,10 +80,10 @@
         </button>
       </div>
     </div>
-   <!-- ** END SEARCH AREA ** -->
-  }
+    <!-- ** END SEARCH AREA ** -->
+    }
 
-  if (Model.IsDetailAreaVisible) {
+    if (Model.IsDetailAreaVisible) {
     <!-- ** BEGIN DETAIL AREA ** -->
     <div class="panel panel-primary">
       <div class="panel-heading">
@@ -95,7 +99,7 @@
         </div>
         <div class="form-group">
           @Html.LabelFor(m => m.Entity.ProductName, "Product Name")
-          @Html.TextBoxFor(m => m.Entity.ProductName, new { @class = "form-control" })          
+          @Html.TextBoxFor(m => m.Entity.ProductName, new { @class = "form-control" })
         </div>
         <div class="form-group">
           @Html.LabelFor(m => m.Entity.IntroductionDate, "Introduction Date")
@@ -130,9 +134,9 @@
       </div>
     </div>
     <!-- ** END DETAIL AREA ** -->
-  }
+    }
 
-  if (Model.IsListAreaVisible) {
+    if (Model.IsListAreaVisible) {
     <!-- ** BEGIN LIST AREA ** -->
     <div class="table-responsive">
       <table id="productTable"
@@ -153,7 +157,8 @@
         </thead>
 
         <tbody>
-          @foreach (var item in Model.Products) {
+          @foreach (var item in Model.Products)
+          {
             <tr>
               <td class="pdsa-action-button-column">
                 <a href="#" data-pdsa-action="edit"
@@ -181,29 +186,33 @@
       </table>
     </div>
     <!-- ** END LIST AREA ** -->
-  }
-}
-
-@section scripts {
-  <script>
-    $(document).ready(function () {
-      // Hook events on buttons and anchors
-      buildClickEvents();
-    });
-
-    // Hook events on buttons and anchors
-    function buildClickEvents() {
-      $("[data-pdsa-action]").on("click", function (e) {
-        e.preventDefault();
-
-        $("#EventCommand").val(
-          $(this).data("pdsa-action"));
-
-        $("#EventArgument").val(
-          $(this).attr("data-pdsa-val"));
-
-        $("form").submit();
-      });
     }
-  </script>
+
 }
+
+    @section scripts {
+      <script src="~/Scripts/angular.js"></script>
+      <script src="~/app/app.module.js"></script>
+      <script src="~/app/product.controller.js"></script>
+      <script>
+        $(document).ready(function () {
+          // Hook events on buttons and anchors
+          buildClickEvents();
+        });
+
+        // Hook events on buttons and anchors
+        function buildClickEvents() {
+          $("[data-pdsa-action]").on("click", function (e) {
+            e.preventDefault();
+
+            $("#EventCommand").val(
+              $(this).data("pdsa-action"));
+
+            $("#EventArgument").val(
+              $(this).attr("data-pdsa-val"));
+
+            $("form").submit();
+          });
+        }
+      </script>
+    }
