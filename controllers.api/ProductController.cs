@@ -33,9 +33,25 @@ namespace PTC.controllers.api
             return "value";
         }
 
-        // POST: api/Product
-        public void Post([FromBody]string value)
+        //[HttpPost()]
+        [Route("api/Product/Search")]
+        public IHttpActionResult Post(ProductSearch searchEntity)
         {
+          IHttpActionResult ret = null;
+          PTCViewModel vm = new PTCViewModel();
+
+          vm.SearchEntity = searchEntity;
+          vm.Search();
+          if (vm.Products.Count > 0)
+          {
+            ret = Ok(vm.Products);
+          }
+          else
+          {
+            ret = NotFound();
+          }
+
+          return ret;
         }
 
         // PUT: api/Product/5
